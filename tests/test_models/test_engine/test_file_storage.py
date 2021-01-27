@@ -18,6 +18,7 @@ import json
 import os
 import pep8
 import unittest
+from models import storage
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -114,6 +115,7 @@ class TestFileStorage(unittest.TestCase):
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
 
+
 class test_bnb_v3(unittest.TestCase):
     '''Test new method get'''
     def testing_get_no_id(self):
@@ -121,12 +123,15 @@ class test_bnb_v3(unittest.TestCase):
         state_id = None
         self.assertTrue("{}".format(storage.get("State", state_id),
                                     None))
+
     def testing_count(self):
         '''testing count method'''
         self.assertTrue("{}".format(storage.count(), 48))
+
     def testing_count_with_params(self):
         '''testing count method with parameters'''
         self.assertTrue("{}".format(storage.count("State")), 16)
+
     def testing_get(self):
         '''testing get with no class'''
         first_state_id = list(storage.all(State).values())[0].id

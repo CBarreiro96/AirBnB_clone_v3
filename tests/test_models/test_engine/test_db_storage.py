@@ -18,6 +18,7 @@ import json
 import os
 import pep8
 import unittest
+from models import storage
 DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
@@ -87,6 +88,7 @@ class TestFileStorage(unittest.TestCase):
     def test_save(self):
         """Test that save properly saves objects to file.json"""
 
+
 class test_dbstorage_v3(unittest.TestCase):
     '''Test new methods'''
     def testing_get_no_id(self):
@@ -94,12 +96,15 @@ class test_dbstorage_v3(unittest.TestCase):
         state_id = None
         self.assertTrue("{}".format(storage.get("State", state_id),
                                     None))
+
     def testing_count(self):
         '''Testing count method'''
         self.assertTrue("{}".format(storage.count(), 48))
+
     def testing_count_with_params(self):
         '''Testing count with parameters'''
         self.assertTrue("{}".format(storage.count("State")), 16)
+
     def testing_get(self):
         '''Testing get with no cls param'''
         state_id = list(storage.all(State).values())[0].id
