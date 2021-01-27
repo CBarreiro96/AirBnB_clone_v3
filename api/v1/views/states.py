@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-""" objects that handles all default RestFul API actions for States """
+"""State objects that handles all default RestFul API actions"""
 from models.state import State
 from models import storage
 from api.v1.views import app_views
-from flask import abort, jsonify, make_response, request
+from flask import abort, jsonify, request
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -28,7 +28,7 @@ def get_states(state_id=None):
         return jsonify(state.to_dict())
 
 
-@app_views.route('states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """
     Deletes a State Object
@@ -42,7 +42,7 @@ def delete_state(state_id):
     storage.delete(state)
     storage.save()
 
-    return make_response(jsonify({}), 200)
+    return jsonify({}), 200
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
@@ -59,7 +59,7 @@ def post_state():
     data = request.json
     instance = State(**data)
     instance.save()
-    return make_response(jsonify(instance.to_dict()), 201)
+    return jsonify(instance.to_dict()), 201
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
@@ -82,4 +82,4 @@ def put_state(state_id):
         if key not in ignore:
             setattr(state, key, value)
     storage.save()
-    return make_response(jsonify(state.to_dict()), 200)
+    return jsonify(state.to_dict()), 200
