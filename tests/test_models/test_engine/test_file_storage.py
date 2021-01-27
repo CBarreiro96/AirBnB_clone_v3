@@ -113,3 +113,21 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+class test_bnb_v3(unittest.TestCase):
+    '''Test new method get'''
+    def testing_get_no_id(self):
+        '''Testing get method with no ID'''
+        state_id = None
+        self.assertTrue("{}".format(storage.get("State", state_id),
+                                    None))
+    def testing_count(self):
+        '''testing count method'''
+        self.assertTrue("{}".format(storage.count(), 48))
+    def testing_count_with_params(self):
+        '''testing count method with parameters'''
+        self.assertTrue("{}".format(storage.count("State")), 16)
+    def testing_get(self):
+        '''testing get with no class'''
+        first_state_id = list(storage.all(State).values())[0].id
+        self.assertTrue("{}".format(storage.get("State", first_state_id), 0))
