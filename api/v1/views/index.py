@@ -17,7 +17,7 @@ def api_status():
     """api_status"""
     return jsonify({"status": "OK"})
 
-@app_views.router('/stats')
+@app_views.route('/stats')
 def stats():
     '''retrieves the number of each objects by type'''
     dict = {}
